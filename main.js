@@ -9,7 +9,7 @@ function addCharacter(string) {
   return myArray
 }
 
-addCharacter('Hello World')
+addCharacter('I believe I can fly. I believe I can touch the sky. I dream about it every night and day. Spread my wings and fly away.')
 
 function renderLetter(item) {
   let $letter = document.createElement('span')
