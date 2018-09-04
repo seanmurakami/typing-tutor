@@ -5,6 +5,8 @@ let state = {
 
 let myArray = [] // contains objects with property "letter"
 
+let $view = document.querySelector('div')
+
 // takes a string and assigns each characer its own property of "letter"
 // it then pushes it to the array
 function addCharacter(string) {
@@ -21,21 +23,31 @@ addCharacter('grumpy wizards make toxic brew for the evil queen and jack')
 
 // renders one letter at a time and puts it in a span element
 // if the text content = myArray[currentCharacter value] - starting is 0
-function renderLetter(item) {
+function renderLetter(item, number) {
   let $letter = document.createElement('span')
   $letter.textContent = item.letter
-  if ($letter.textContent === myArray[state['currentCharacter']]['letter']){
+  if (myArray[number] === myArray[state['currentCharacter']]) {
     $letter.classList.toggle('characterTyped')
   }
   return $letter
 }
 
-function renderAllLetters(items){
+function renderAllLetters(items) {
   let $sentence = document.createElement('div')
-  for (let i = 0; i < items.length; i++){
-    $sentence.appendChild(renderLetter(items[i]))
+  $sentence.classList.add('container')
+  for (let i = 0; i < items.length; i++) {
+    $sentence.appendChild(renderLetter(items[i], i))
   }
   return $sentence
 }
 
-document.body.appendChild(renderAllLetters(myArray))
+$view.appendChild(renderAllLetters(myArray))
+
+document.addEventListener('keydown', function (e) {
+  if (e.key === myArray[state['currentCharacter']]['letter']) {
+    state.start = true
+    state.currentCharacter += 1
+    $view.innerHTML = ''
+    $view.appendChild(renderAllLetters(myArray))
+  }
+})
