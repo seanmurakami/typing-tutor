@@ -1,15 +1,20 @@
 let myArray = []
 
+let state = {
+  start: false,
+}
+
 function addCharacter(string) {
   for (let i = 0; i < string.length; i++) {
     let blank = {}
     blank.letter = string[i]
     myArray.push(blank)
   }
+  state.myCharacters = myArray
   return myArray
 }
 
-addCharacter('I believe I can fly. I believe I can touch the sky. I dream about it every night and day. Spread my wings and fly away.')
+addCharacter('grumpy wizards make toxic brew for the evil queen and jack')
 
 function renderLetter(item) {
   let $letter = document.createElement('span')
