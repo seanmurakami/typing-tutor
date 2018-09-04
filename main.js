@@ -3,7 +3,7 @@ let state = {
   currentCharacter: 0
 }
 
-let myArray = []
+let characters = []
 
 let $view = document.querySelector('div')
 
@@ -11,10 +11,11 @@ function addCharacter(string) {
   for (let i = 0; i < string.length; i++) {
     let blank = {}
     blank.letter = string[i]
-    myArray.push(blank)
+    blank.failures = 0
+    characters.push(blank)
   }
-  state.myCharacters = myArray
-  return myArray
+  state.myCharacters = characters
+  return characters
 }
 
 addCharacter('grumpy wizards make toxic brew for the evil queen and jack')
@@ -22,7 +23,10 @@ addCharacter('grumpy wizards make toxic brew for the evil queen and jack')
 function renderLetter(item, number) {
   let $letter = document.createElement('span')
   $letter.textContent = item.letter
-  if (myArray[number] === myArray[state['currentCharacter']]) {
+  if (item === characters[state.currentCharacter] && (state.myCharacters[number].failures > 0)) {
+    $letter.classList.toggle('failed')
+  }
+  else if (item === characters[state.currentCharacter]){
     $letter.classList.toggle('characterTyped')
   }
   return $letter
@@ -37,13 +41,18 @@ function renderAllLetters(items) {
   return $sentence
 }
 
-$view.appendChild(renderAllLetters(myArray))
+$view.appendChild(renderAllLetters(characters))
 
 document.addEventListener('keydown', function (e) {
-  if (e.key === myArray[state['currentCharacter']]['letter']) {
+  if (e.key === characters[state.currentCharacter].letter) {
     state.start = true
     state.currentCharacter += 1
     $view.innerHTML = ''
-    $view.appendChild(renderAllLetters(myArray))
+    $view.appendChild(renderAllLetters(characters))
+  }
+  else if (e.key !== characters[state.currentCharacter].letter) {
+    state.myCharacters[state.currentCharacter].failures += 1
+    $view.innerHTML = ''
+    $view.appendChild(renderAllLetters(characters))
   }
 })
