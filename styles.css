@@ -12,11 +12,16 @@ h1 {
   color: rgb(77, 158, 77)
 }
 
-div {
+div.container {
   font-size: 2.5rem;
   border: solid;
   border-width: 1.5px;
   border-radius: 1rem;
   padding: 1.5rem;
   margin: 0 2.5rem;
+}
+
+.characterTyped {
+  color: red;
+  font-weight: bold;
 }

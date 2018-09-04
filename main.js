@@ -1,4 +1,11 @@
+let state = {
+  start: false,
+  currentCharacter: 0
+}
+
 let myArray = []
+
+let $view = document.querySelector('div')
 
 function addCharacter(string) {
   for (let i = 0; i < string.length; i++) {
@@ -6,23 +13,37 @@ function addCharacter(string) {
     blank.letter = string[i]
     myArray.push(blank)
   }
+  state.myCharacters = myArray
   return myArray
 }
 
-addCharacter('I believe I can fly. I believe I can touch the sky. I dream about it every night and day. Spread my wings and fly away.')
+addCharacter('grumpy wizards make toxic brew for the evil queen and jack')
 
-function renderLetter(item) {
+function renderLetter(item, number) {
   let $letter = document.createElement('span')
   $letter.textContent = item.letter
+  if (myArray[number] === myArray[state['currentCharacter']]) {
+    $letter.classList.toggle('characterTyped')
+  }
   return $letter
 }
 
-function renderAllLetters(items){
+function renderAllLetters(items) {
   let $sentence = document.createElement('div')
-  for (let i = 0; i < items.length; i++){
-    $sentence.appendChild(renderLetter(items[i]))
+  $sentence.classList.add('container')
+  for (let i = 0; i < items.length; i++) {
+    $sentence.appendChild(renderLetter(items[i], i))
   }
   return $sentence
 }
 
-document.body.appendChild(renderAllLetters(myArray))
+$view.appendChild(renderAllLetters(myArray))
+
+document.addEventListener('keydown', function (e) {
+  if (e.key === myArray[state['currentCharacter']]['letter']) {
+    state.start = true
+    state.currentCharacter += 1
+    $view.innerHTML = ''
+    $view.appendChild(renderAllLetters(myArray))
+  }
+})
