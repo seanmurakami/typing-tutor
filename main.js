@@ -23,7 +23,10 @@ addCharacter('grumpy wizards make toxic brew for the evil queen and jack')
 function renderLetter(item, number) {
   let $letter = document.createElement('span')
   $letter.textContent = item.letter
-  if (myArray[number] === myArray[state['currentCharacter']]) {
+  if (myArray[number] === myArray[state['currentCharacter']] && (state['myCharacters'][number]['failures'] > 0)) {
+    $letter.classList.toggle('failed')
+  }
+  else if (myArray[number] === myArray[state['currentCharacter']]){
     $letter.classList.toggle('characterTyped')
   }
   return $letter
@@ -49,6 +52,8 @@ document.addEventListener('keydown', function (e) {
   }
   else if (e.key !== myArray[state['currentCharacter']]['letter']) {
     state['myCharacters'][state['currentCharacter']]['failures'] += 1
-    console.log(state)
+    console.log(state['myCharacters'])
+    $view.innerHTML = ''
+    $view.appendChild(renderAllLetters(myArray))
   }
 })
