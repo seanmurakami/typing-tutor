@@ -11,6 +11,7 @@ function addCharacter(string) {
   for (let i = 0; i < string.length; i++) {
     let blank = {}
     blank.letter = string[i]
+    blank.failures = 0
     myArray.push(blank)
   }
   state.myCharacters = myArray
