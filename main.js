@@ -47,4 +47,8 @@ document.addEventListener('keydown', function (e) {
     $view.innerHTML = ''
     $view.appendChild(renderAllLetters(myArray))
   }
+  else if (e.key !== myArray[state['currentCharacter']]['letter']) {
+    state['myCharacters'][state['currentCharacter']]['failures'] += 1
+    console.log(state)
+  }
 })
