@@ -1,0 +1,22 @@
+html {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Quicksand', sans-serif;
+  text-align: center;
+}
+
+h1 {
+  font-size: 4.5rem;
+  color: rgb(77, 158, 77)
+}
+
+div {
+  font-size: 2.5rem;
+  border: solid;
+  border-width: 1.5px;
+  border-radius: 1rem;
+  padding: 1.5rem;
+  margin: 0 2.5rem;
+}
