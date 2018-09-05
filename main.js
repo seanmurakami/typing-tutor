@@ -1,6 +1,7 @@
 let state = {
-  start: false,
-  currentCharacter: 0
+  currentCharacter: 0,
+  totalKeyDown: 0,
+  failures: 0
 }
 
 let characters = []
@@ -41,17 +42,31 @@ function renderAllLetters(items) {
   return $sentence
 }
 
+function showResults(){
+  let $resultMessage = document.createElement('p') // add a class here to style your paragraph
+  let x = Math.round(((state.totalKeyDown-state.failures)/state.totalKeyDown)*100)
+  $resultMessage.textContent = 'Good job! You had ' + x + '% accuracy!'
+  return $resultMessage
+}
+
 $view.appendChild(renderAllLetters(characters))
 
 document.addEventListener('keydown', function (e) {
-  if (e.key === characters[state.currentCharacter].letter) {
-    state.start = true
+  if (state.currentCharacter === characters.length){
+    $view.innerHTML = ''
+    $view.appendChild(renderAllLetters(characters))
+    $view.appendChild(showResults())
+  }
+  else if (e.key === characters[state.currentCharacter].letter) {
     state.currentCharacter += 1
+    state.totalKeyDown += 1
     $view.innerHTML = ''
     $view.appendChild(renderAllLetters(characters))
   }
   else if (e.key !== characters[state.currentCharacter].letter) {
     state.myCharacters[state.currentCharacter].failures += 1
+    state.failures += 1
+    state.totalKeyDown += 1
     $view.innerHTML = ''
     $view.appendChild(renderAllLetters(characters))
   }

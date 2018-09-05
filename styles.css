@@ -7,12 +7,12 @@ body {
   text-align: center;
 }
 
-h1 {
+h1, p{
   font-size: 4.5rem;
   color: rgb(77, 158, 77)
 }
 
-div.container {
+div.container{
   font-size: 2.5rem;
   border: solid;
   border-width: 1.5px;
@@ -21,12 +21,15 @@ div.container {
   margin: 0 2.5rem;
 }
 
+.characterTyped, .failed {
+  font-size: 3rem;
+  font-weight: bold
+}
+
 .characterTyped {
-  color: green;
-  font-weight: bold;
+  color: rgb(0, 184, 0);
 }
 
 .failed {
   color: red;
-  font-weight: bold;
 }
